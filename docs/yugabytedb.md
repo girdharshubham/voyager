@@ -59,7 +59,8 @@ Universe: two sets of servers.
 ## Universe creation
 ![yugabyte master creation](https://docs.yugabyte.com/images/architecture/create_universe_masters.png "yugabyte master creation")  
 ![yugabyte leader election](https://docs.yugabyte.com/images/architecture/create_universe_tserver_heartbeat.png "yugabyte leader election")  
-![yugabyte tablet server creation](https://docs.yugabyte.com/images/architecture/create_universe_tserver_heartbeat.png "yugabyte tablet server creation")
+![yugabyte tablet server creation](https://docs.yugabyte.com/images/architecture/create_universe_tserver_heartbeat.png "yugabyte tablet server creation")  
+
 Steps to create a YugabyteDB universe:
 1. Start YB-Masters
     * Bring sufficient number of YB-Masters, with each being made aware of the others.
