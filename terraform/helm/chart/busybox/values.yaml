@@ -1,0 +1,5 @@
+replicas: 1
+name: busybox
+image: busybox
+labels:
+  app: busybox
