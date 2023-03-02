@@ -1,0 +1,19 @@
+syntax = "proto3";
+package edu.self.domain;
+
+
+message DeviceState {
+  string device_id = 1;
+  Location location = 2;
+  Attributes attributes = 3;
+}
+
+message Location {
+  double lon = 1;
+  double lat = 2;
+}
+
+message Attributes {
+  float temperature = 1;
+  float humidity = 3;
+}

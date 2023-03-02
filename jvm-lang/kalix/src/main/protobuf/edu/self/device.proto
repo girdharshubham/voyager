@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package edu.self;
+
+import "kalix/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "edu/self/domain/domain.proto";
+
+message Attributes {
+  float temperature = 1;
+  float humidity = 2;
+}
+
+message AddLocationData {
+  string device_id = 1 [(kalix.field).entity_key = true];
+  domain.Location location = 2;
+}
+
+message CreateDeviceData {
+  string device_id = 1 [(kalix.field).entity_key = true];
+}
+
+message GetDeviceData {
+  string device_id = 1[(kalix.field).entity_key = true];
+}
+
+service DeviceService {
+  option (kalix.codegen) = {
+    value_entity: {
+      name: "edu.self.domain.Device"
+      entity_type: "device"
+      state: "edu.self.domain.DeviceState"
+    }
+  };
+
+  rpc AddLocation(AddLocationData) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/location/{device_id}"
+      body: "*"
+    };
+  };
+
+  rpc CreateDevice(CreateDeviceData) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/device/{device_id}"
+      body: "*"
+    };
+  };
+
+  rpc GetDevice(GetDeviceData) returns (edu.self.domain.DeviceState) {
+    option (google.api.http) = {
+      get: "/device/{device_id}"
+    };
+  }
+}
