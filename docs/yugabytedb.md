@@ -57,16 +57,15 @@ Universe: two sets of servers.
 ## Core functions
 
 ## Universe creation
-
+![yugabyte master creation](https://docs.yugabyte.com/images/architecture/create_universe_masters.png "yugabyte master creation")  
+![yugabyte leader election](https://docs.yugabyte.com/images/architecture/create_universe_tserver_heartbeat.png "yugabyte leader election")  
+![yugabyte tablet server creation](https://docs.yugabyte.com/images/architecture/create_universe_tserver_heartbeat.png "yugabyte tablet server creation")
 Steps to create a YugabyteDB universe:
-![yugabyte master creation](https://docs.yugabyte.com/images/architecture/create_universe_masters.png "yugabyte master creation")
-![yugabyte leader election](https://docs.yugabyte.com/images/architecture/create_universe_tserver_heartbeat.png "yugabyte leader election")
 1. Start YB-Masters
     * Bring sufficient number of YB-Masters, with each being made aware of the others.
         * As many as the replication factor
     * YB-Masters initialize themselves with a universally unique identifier(UUID), learn about each other and perform a leader election.
     * At the end of this step, one of the masters establises itself as the leader.
 2. Start YB-TServers
-![yugabyte tablet server creation](https://docs.yugabyte.com/images/architecture/create_universe_tserver_heartbeat.png "yugabyte tablet server creation")
     * You need to start as many tablet servers as there are nodes, with the master addresses being passed to them on start up.
     * They start sending heartbeats to the masters, communicating the fact that they are alive.
