@@ -1,0 +1,15 @@
+resource "local_file" "{{ metadata.name }}_helm_values" {
+  filename = "values.yaml"
+  content = <<-EOF
+    # use this file to override default values of charts
+    # No need to specify service meta info.It can be fetch from playground.yaml
+    # some of the env specific keys will be override by CI/CD pipeline ( Jenkins)
+    name: {{ metadata.name }}
+    org: {{ metadata.org }}
+    replicaCount: {{ spec.replicas }}
+    image:
+        repository: {{ spec.container.repository }}
+        tag: {{ spec.container.tag }}
+        pullPolicy: {{ spec.container.imagePullPolicy }}
+  EOF
+}
