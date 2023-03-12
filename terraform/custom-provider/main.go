@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/plugin"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
@@ -12,14 +13,16 @@ func absolve(_ *schema.ResourceData, i interface{}) error {
 }
 
 func Provider() *schema.Provider {
+
 	return &schema.Provider{
 		ResourcesMap: map[string]*schema.Resource{
-			"executor": execute(),
+			"executor": executor(),
 		},
 	}
 }
 
-func execute() *schema.Resource {
+func executor() *schema.Resource {
+
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"entrypoint": {
@@ -37,8 +40,9 @@ func execute() *schema.Resource {
 			entrypoint := data.Get("entrypoint").(string)
 			cmd := data.Get("command").(string)
 
-			out, err := exec.Command(entrypoint, cmd).Output()
-			data.SetId(string(out))
+			_, err := exec.Command(entrypoint, cmd).Output()
+			data.SetId(uuid.New().String())
+
 			return err
 		},
 		Read:   absolve,
